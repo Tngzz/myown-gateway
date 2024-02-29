@@ -1,25 +1,42 @@
 server:
-    port:5000
+  port: 5000
 
 spring:
-    application:
-        name: API-GATEWAY
-    cloud:
-      gateway:
-          routes:
-            - id: COMMUNITY-SERVICE
-              uri: lb//COMMUNITY-SERVICE
-              predicates:
-                - Path=/api/v1/communities/**
-            - id: CITY-SERVICE
-              uri: lb://CITY-SERVICE
-              predicates:
-                - Path=/api/v1/cities/**
-    eureka:
-      client:
-          register-with-eureka: true
-          fetch-registry: true
-          service-url:
-              defaultZone: http://localhost:8989/eureka/
-      instance:
-          hostname: localhost
+  application:
+    name: API-GATEWAY
+  cloud:
+    gateway:
+      routes:
+        - id: COMMUNITY-SERVICE
+          uri: lb://COMMUNITY-SERVICE
+          predicates:
+            - Path=/api/v1/communities/**
+        - id: CITY-SERVICE
+          uri: lb://CITY-SERVICE
+          predicates:
+            - Path=/api/v1/cities/**
+        - id: CHAT-SERVICE
+          uri: lb://CHAT-SERVICE
+          predicates:
+            - Path=/api/v1/chat/**
+        - id: USERS-SERVICE
+          uri: lb://USERS-SERVICE
+          predicates:
+            - Path=/api/v1/users/**
+        - id: ROLE-SERVICE
+          uri: lb://ROLE-SERVICE
+          predicates:
+            - Path=/api/v1/role/**
+            -
+    discovery:
+      locator:
+        enabled: true
+eureka:
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://localhost:8989/eureka
+  instance:
+    hostname: localhost
+
